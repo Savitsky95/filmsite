@@ -15,7 +15,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/img/1697422343_zefirka-club-p-mnogo-igr-na-odnoi-kartinke-54.jpg');
+  background-image: url('/img/back.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -47,7 +47,7 @@ header {
 }
 
 header h1 {
-  color: #d4af37; 
+  color: #d4af37; /* Песочный */
   font-size: 24px;
   margin: 0;
   padding: 10px;
