@@ -1,39 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website</title>
-  <link rel="stylesheet" href="./css/styles.css">
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/body-scroll-lock/3.1.5/bodyScrollLock.min.js"></script>
-  <script defer src="./js/modal.js"></script>
-  <script defer src="./js/mobile-menu.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск фильмов</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-  <header>
 
-  </header>
+    <!-- Верхняя панель -->
+    <header>
+        <h1>Давай найдем фильм вместе!</h1>
+    </header>
 
-  <main>
-    <section>
-      <h1>Давай подберем фильм вместе</h1>
-    </section>
-  </main>
+    <!-- Основная секция с кнопкой -->
+    <main>
+        <button id="searchBtn">Подбор</button>
+    </main>
 
-  <footer>
-  </footer>
-
-  <div class="backdrop is-hidden" data-modal>
-    <div class="modal">
-      <button class="button-modal" type="button" data-modal-close>
-        <svg><use href="./images/symbol-defs.svg#modal-close-buttom" /></svg>
-    </div>
+    <!-- Модальное окно -->
+<div id="filterModal">
+  <div class="modal-content">
+      <!-- Кнопка закрытия -->
+      <button class="close-btn" onclick="closeModal()">×</button>
+      
+      <h2>Фильтры</h2>
+      
+      <label for="type">Тип</label>
+      <select id="type">
+          <option value="movie">Фильм</option>
+          <option value="series">Сериал</option>
+      </select>
+      
+      <label for="genre">Жанр</label>
+      <select id="genre">
+          <option value="action">Экшн</option>
+          <option value="comedy">Комедия</option>
+          <!-- Другие жанры -->
+      </select>
+      
+      <label for="year">Год</label>
+      <input type="number" id="year" placeholder="Введите год">
+      
+      <button onclick="searchMovies()">Поиск</button>
   </div>
+</div>
 
-  <div class="menu-container js-menu-container" id="mobile-menu">
-    <button class="menu-toggle js-close-menu">
-      <svg><use href="./images/symbol-defs.svg#modal-close-buttom" /></svg>
-    </button>
-  </div>
+
+
+    <script>
+        // Открытие модального окна
+        document.getElementById("searchBtn").onclick = function() {
+            document.getElementById("filterModal").style.display = "flex";
+        }
+
+        // Функция поиска (можно будет дополнить логикой)
+        function search() {
+            alert("Фильтрация по выбранным параметрам");
+            document.getElementById("filterModal").style.display = "none";
+        }
+
+        // Кнопка поиска в модальном окне
+        document.getElementById("searchBtnModal").onclick = search;
+// Функция для открытия модального окна
+function openModal() {
+    document.getElementById('filterModal').style.display = 'flex';
+}
+
+// Функция для закрытия модального окна
+function closeModal() {
+    document.getElementById('filterModal').style.display = 'none';
+}
+
+        
+    </script>
+
 </body>
 </html>
