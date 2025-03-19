@@ -8,9 +8,23 @@
 </head>
 <body>
 
-    <!-- Верхняя панель -->
+    <!-- Верхняя панель с навигацией -->
     <header>
+        <div class="header-top">
+            <nav class="language-switcher">
+                <a href="?lang=ru">RU</a> | 
+                <a href="?lang=en">EN</a> | 
+                <a href="?lang=ua">UA</a>
+            </nav>
+        </div>
         <h1>Давай найдем фильм вместе!</h1>
+        <nav>
+            <ul>
+                <li><a href="novinki.html">Новинки</a></li>
+                <li><a href="popular.html">Популярное</a></li>
+                <li><a href="top.html">Топ рейтинга</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Основная секция с кнопкой -->
@@ -19,61 +33,26 @@
     </main>
 
     <!-- Модальное окно -->
-<div id="filterModal">
-  <div class="modal-content">
-      <!-- Кнопка закрытия -->
-      <button class="close-btn" onclick="closeModal()">×</button>
-      
-      <h2>Фильтры</h2>
-      
-      <label for="type">Тип</label>
-      <select id="type">
-          <option value="movie">Фильм</option>
-          <option value="series">Сериал</option>
-      </select>
-      
-      <label for="genre">Жанр</label>
-      <select id="genre">
-          <option value="action">Экшн</option>
-          <option value="comedy">Комедия</option>
-          <!-- Другие жанры -->
-      </select>
-      
-      <label for="year">Год</label>
-      <input type="number" id="year" placeholder="Введите год">
-      
-      <button class="search-btn" onclick="searchMovies()">Поиск</button>
-  </div>
-</div>
+    <div id="filterModal" class="modal">
+        <div class="modal-content">
+            <button id="closeModalBtn" class="close-btn">×</button>
+            <h2>Фильтры</h2>
+            <label for="type">Тип</label>
+            <select id="type">
+                <option value="movie">Фильм</option>
+                <option value="series">Сериал</option>
+            </select>
+            <label for="genre">Жанр</label>
+            <select id="genre">
+                <option value="action">Экшн</option>
+                <option value="comedy">Комедия</option>
+            </select>
+            <label for="year">Год</label>
+            <input type="number" id="year" placeholder="Введите год">
+            <button id="searchMoviesBtn" class="search-btn">Поиск</button>
+        </div>
+    </div>
 
-
-
-    <script>
-        // Открытие модального окна
-        document.getElementById("searchBtn").onclick = function() {
-            document.getElementById("filterModal").style.display = "flex";
-        }
-
-        // Функция поиска (можно будет дополнить логикой)
-        function search() {
-            alert("Фильтрация по выбранным параметрам");
-            document.getElementById("filterModal").style.display = "none";
-        }
-
-        // Кнопка поиска в модальном окне
-        document.getElementById("searchBtnModal").onclick = search;
-// Функция для открытия модального окна
-function openModal() {
-    document.getElementById('filterModal').style.display = 'flex';
-}
-
-// Функция для закрытия модального окна
-function closeModal() {
-    document.getElementById('filterModal').style.display = 'none';
-}
-
-        
-    </script>
-
+    <script src="./script.js"></script>
 </body>
 </html>
