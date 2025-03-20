@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterModal = document.getElementById("filterModal");
     const searchMoviesBtn = document.getElementById("searchMoviesBtn");
 
+    // Скрываем модальное окно при загрузке страницы
+    filterModal.style.display = "none";
+
     // Открытие модального окна
     searchBtn.addEventListener("click", () => {
         filterModal.style.display = "flex";
