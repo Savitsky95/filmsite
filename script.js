@@ -14,17 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
         topBtn: document.getElementById("topBtn"),
     };
 
-    // Инициализация модального окна
-    elements.filterModal.style.display = "none";
+    if (elements.filterModal) elements.filterModal.style.display = "none";
 
-    elements.searchBtn.addEventListener("click", () => toggleModal(true));
-    elements.closeModalBtn.addEventListener("click", () => toggleModal(false));
+    if (elements.searchBtn) elements.searchBtn.addEventListener("click", () => toggleModal(true));
+    if (elements.closeModalBtn) elements.closeModalBtn.addEventListener("click", () => toggleModal(false));
+
     window.addEventListener("click", (event) => {
-        if (event.target === elements.filterModal) toggleModal(false);
+        if (elements.filterModal && event.target === elements.filterModal) toggleModal(false);
     });
 
     function toggleModal(show) {
-        elements.filterModal.style.display = show ? "flex" : "none";
+        if (elements.filterModal) {
+            elements.filterModal.style.display = show ? "flex" : "none";
+        }
     }
 
     async function fetchMovies(endpoint) {
@@ -40,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderMovies(movies) {
+        if (!elements.movieContainer) return;
+
         elements.movieContainer.innerHTML = movies.length
             ? movies.map(movie => `
                 <div class="movie-card">
@@ -58,9 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
-    elements.novinkiBtn.addEventListener("click", handleCategoryClick("/movie/now_playing"));
-    elements.popularBtn.addEventListener("click", handleCategoryClick("/movie/popular"));
-    elements.topBtn.addEventListener("click", handleCategoryClick("/movie/top_rated"));
+    if (elements.novinkiBtn) elements.novinkiBtn.addEventListener("click", handleCategoryClick("/movie/now_playing"));
+    if (elements.popularBtn) elements.popularBtn.addEventListener("click", handleCategoryClick("/movie/popular"));
+    if (elements.topBtn) elements.topBtn.addEventListener("click", handleCategoryClick("/movie/top_rated"));
 
     function getLangFromURL() {
         return new URLSearchParams(window.location.search).get("lang") || "ru";
@@ -68,16 +72,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function applyTranslations(lang) {
         const translations = {
-            ru: { title: "Давай найдем фильм вместе!", search: "Подбор", filters: "Фильтры", searchBtn: "Поиск" },
-            en: { title: "Let's find a movie together!", search: "Find", filters: "Filters", searchBtn: "Search" },
-            ua: { title: "Давай знайдемо фільм разом!", search: "Підбір", filters: "Фільтри", searchBtn: "Пошук" },
+            ru: { 
+                title: "Давай найдем фильм вместе!", 
+                search: "Подбор", 
+                filters: "Фильтры", 
+                searchBtn: "Поиск",
+                novinki: "Новинки",
+                popular: "Популярное",
+                top: "Топ рейтинга"
+            },
+            en: { 
+                title: "Let's find a movie together!", 
+                search: "Find", 
+                filters: "Filters", 
+                searchBtn: "Search",
+                novinki: "New Releases",
+                popular: "Popular",
+                top: "Top Rated"
+            },
+            ua: { 
+                title: "Давай знайдемо фільм разом!", 
+                search: "Підбір", 
+                filters: "Фільтри", 
+                searchBtn: "Пошук",
+                novinki: "Новинки",
+                popular: "Популярне",
+                top: "Топ рейтингу"
+            },
         };
         const t = translations[lang] || translations.ru;
-        document.querySelector("h1").textContent = t.title;
-        elements.searchBtn.textContent = t.search;
-        document.querySelector(".modal-content h2").textContent = t.filters;
-        elements.searchMoviesBtn.textContent = t.searchBtn;
+
+        const titleElement = document.querySelector("h1");
+        if (titleElement) titleElement.textContent = t.title;
+
+        if (elements.searchBtn) elements.searchBtn.textContent = t.search;
+
+        const modalTitle = document.querySelector(".modal-content h2");
+        if (modalTitle) modalTitle.textContent = t.filters;
+
+        if (elements.searchMoviesBtn) elements.searchMoviesBtn.textContent = t.searchBtn;
+
+        if (elements.novinkiBtn) elements.novinkiBtn.textContent = t.novinki;
+        if (elements.popularBtn) elements.popularBtn.textContent = t.popular;
+        if (elements.topBtn) elements.topBtn.textContent = t.top;
     }
 
     applyTranslations(getLangFromURL());
+
+    // Загружаем популярные фильмы при старте страницы
+    handleCategoryClick("/movie/popular")();
 });

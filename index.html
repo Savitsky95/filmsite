@@ -17,12 +17,12 @@
                 <a href="?lang=ua">UA</a>
             </nav>
         </div>
-        <h1>Давай найдем фильм вместе!</h1>
+        <h1 id="pageTitle">Давай найдем фильм вместе!</h1>
         <nav>
             <ul>
-                <li><a href="novinki.html">Новинки</a></li>
-                <li><a href="popular.html">Популярное</a></li>
-                <li><a href="top.html">Топ рейтинга</a></li>
+                <li><button id="novinkiBtn">Новинки</button></li>
+                <li><button id="popularBtn">Популярное</button></li>
+                <li><button id="topBtn">Топ рейтинга</button></li>
             </ul>
         </nav>
     </header>
@@ -37,21 +37,21 @@
     <div id="filterModal" class="modal">
         <div class="modal-content">
             <button id="closeModalBtn" class="close-btn">×</button>
-            <h2>Фильтры</h2>
+            <h2 id="filtersTitle">Фильтры</h2>
             
-            <label for="type">Тип</label>
+            <label for="type" id="typeLabel">Тип</label>
             <select id="type">
-                <option value="movie">Фильм</option>
-                <option value="series">Сериал</option>
+                <option value="movie" id="movieOption">Фильм</option>
+                <option value="series" id="seriesOption">Сериал</option>
             </select>
 
-            <label for="genre">Жанр</label>
+            <label for="genre" id="genreLabel">Жанр</label>
             <select id="genre">
-                <option value="action">Экшн</option>
-                <option value="comedy">Комедия</option>
+                <option value="action" id="actionOption">Экшн</option>
+                <option value="comedy" id="comedyOption">Комедия</option>
             </select>
 
-            <label for="year">Год</label>
+            <label for="year" id="yearLabel">Год</label>
             <input type="number" id="year" placeholder="Введите год">
 
             <button id="searchMoviesBtn" class="search-btn">Поиск</button>
