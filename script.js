@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
     const API_KEY = "035a42c2ee22ee951b6e6b2845a82552";
     const BASE_URL = "https://api.themoviedb.org/3";
     const IMG_BASE_URL = "https://image.tmdb.org/t/p/w500";
@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function fetchMovies(endpoint) {
         try {
+            console.log(`Запрос к API: ${BASE_URL}${endpoint}?api_key=${API_KEY}&language=ru-RU&page=1`);
             const response = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=ru-RU&page=1`);
             if (!response.ok) throw new Error("Ошибка загрузки данных");
             const data = await response.json();
@@ -57,14 +58,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleCategoryClick(endpoint) {
         return async () => {
+            console.log(`Кнопка нажата, загружаем: ${endpoint}`);
             const movies = await fetchMovies(endpoint);
             renderMovies(movies);
         };
     }
 
-    if (elements.novinkiBtn) elements.novinkiBtn.addEventListener("click", handleCategoryClick("/movie/now_playing"));
-    if (elements.popularBtn) elements.popularBtn.addEventListener("click", handleCategoryClick("/movie/popular"));
-    if (elements.topBtn) elements.topBtn.addEventListener("click", handleCategoryClick("/movie/top_rated"));
+    // Добавляем обработчики кликов и логируем их
+    if (elements.novinkiBtn) {
+        elements.novinkiBtn.addEventListener("click", handleCategoryClick("/movie/now_playing"));
+        console.log("Обработчик для 'Новинки' добавлен");
+    }
+    if (elements.popularBtn) {
+        elements.popularBtn.addEventListener("click", handleCategoryClick("/movie/popular"));
+        console.log("Обработчик для 'Популярное' добавлен");
+    }
+    if (elements.topBtn) {
+        elements.topBtn.addEventListener("click", handleCategoryClick("/movie/top_rated"));
+        console.log("Обработчик для 'Топ рейтинга' добавлен");
+    }
 
     function getLangFromURL() {
         return new URLSearchParams(window.location.search).get("lang") || "ru";
@@ -121,4 +133,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Загружаем популярные фильмы при старте страницы
     handleCategoryClick("/movie/popular")();
-});
+};
