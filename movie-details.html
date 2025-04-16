@@ -220,13 +220,24 @@
                     <p>Дата выпуска: ${movie.release_date}</p>
                     <p>Рейтинг: ${movie.vote_average}</p>
                 `;
-                // Добавляем ссылки на Netflix, Amazon, Disney+ и lampa.mx
+                // Проверяем устройство и добавляем ссылки
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                const lampaWebLink = `http://lampa.mx/?card=${movie.id}&media=movie&source=tmdb&select=open`;
+                const lampaAppLink = `lampa://open?card=${movie.id}&media=movie&source=tmdb`;
+
                 const movieLinks = document.createElement('div');
                 movieLinks.classList.add('movie-links');
                 movieLinks.innerHTML = `
-                    <a href="http://lampa.mx/?card=${movie.id}&media=movie&source=tmdb&select=open" target="_blank">Lampa</a>
+                    ${isMobile ? `<a href="${lampaAppLink}" target="_blank">Открыть в Lampa TV</a>` : `<a href="${lampaWebLink}" target="_blank">Lampa</a>`}
                 `;
                 movieDetailsContainer.appendChild(movieLinks);
+
+                if (isMobile) {
+                    const notification = document.createElement('p');
+                    notification.textContent = 'Вы можете открыть фильм через приложение Lampa TV.';
+                    notification.style.color = '#ffd700';
+                    movieDetailsContainer.appendChild(notification);
+                }
             }
 
             // Отображение трейлера
