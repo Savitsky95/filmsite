@@ -224,10 +224,7 @@
                 const movieLinks = document.createElement('div');
                 movieLinks.classList.add('movie-links');
                 movieLinks.innerHTML = `
-                    <a href="https://www.netflix.com/search?q=${encodeURIComponent(movie.title)}" target="_blank">Netflix</a>
-                    <a href="https://www.amazon.com/s?k=${encodeURIComponent(movie.title)}" target="_blank">Amazon</a>
-                    <a href="https://www.disneyplus.com/search/${encodeURIComponent(movie.title)}" target="_blank">Disney+</a>
-                    <a href="https://lampa.mx/search?q=${encodeURIComponent(movie.title)}" target="_blank">Lampa</a>
+                    <a href="http://lampa.mx/?card=${movie.id}&media=movie&source=tmdb&select=open" target="_blank">Lampa</a>
                 `;
                 movieDetailsContainer.appendChild(movieLinks);
             }

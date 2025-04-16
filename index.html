@@ -72,6 +72,9 @@
             <select id="type">
                 <option value="movie" id="movieOption">Фильм</option>
                 <option value="tv" id="seriesOption">Сериал</option>
+                <option value="anime" id="animeOption">Аниме</option>
+                <option value="cartoon" id="cartoonOption">Мультфильм</option>
+                <option value="cartoon_series" id="cartoonSeriesOption">Мультсериал</option>
             </select>
             <label for="genre" id="genreLabel">Жанр</label>
             <select id="genre">
@@ -81,9 +84,27 @@
                 <option value="18">Драма</option>
                 <option value="27">Ужасы</option>
                 <option value="10749">Мелодрама</option>
+                <option value="16">Анимация</option>
+                <option value="878">Фантастика</option>
+                <option value="12">Приключения</option>
+                <option value="80">Криминал</option>
+                <option value="99">Документальный</option>
+                <option value="14">Фэнтези</option>
+                <option value="36">Исторический</option>
+                <option value="10402">Музыка</option>
+                <option value="9648">Мистика</option>
+                <option value="10752">Военный</option>
+                <option value="37">Вестерн</option>
             </select>
             <label for="year" id="yearLabel">Год</label>
-            <input type="number" id="year" placeholder="Введите год" />
+            <select id="year">
+                <option value="">--</option>
+                <option value="before_2000">До 2000</option>
+                <option value="2001-2010">2001-2010</option>
+                <option value="2011-2015">2011-2015</option>
+                <option value="2016-2020">2016-2020</option>
+                <option value="2021-present">2021 - текущее время</option>
+            </select>
             <button id="searchMoviesBtn" class="search-btn">Поиск</button>
         </div>
     </div>
