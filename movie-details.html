@@ -154,7 +154,8 @@
                     .then((response) => response.json())
                     .then((data) => {
                         displayMovieDetails(data, language);
-                        fetchMovieTrailer(movieId, language);  // Загружаем трейлер после получения информации о фильме
+                        fetchMovieTrailer(movieId, language);  // Загружаем трейлер
+                        fetchMovieProviders(movieId);  // Загружаем провайдеров
                     })
                     .catch((error) => {
                         console.error('Ошибка при загрузке данных фильма:', error);
@@ -181,6 +182,34 @@
                     });
             }
 
+            // Функция для отображения провайдеров
+            function fetchMovieProviders(movieId) {
+                fetch(`${BASE_URL}/movie/${movieId}/watch/providers?api_key=${API_KEY}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const providers = data.results.RU || {}; // Используем регион RU
+                        if (providers.link) {
+                            displayProviders(providers.link);
+                        } else {
+                            movieDetailsContainer.innerHTML += '<p>Платформы для просмотра не найдены.</p>';
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка при загрузке провайдеров:', error);
+                        movieDetailsContainer.innerHTML += '<p>Не удалось загрузить платформы для просмотра.</p>';
+                    });
+            }
+
+            // Функция для отображения провайдеров
+            function displayProviders(link) {
+                const providerLinks = document.createElement('div');
+                providerLinks.classList.add('movie-links');
+                providerLinks.innerHTML = `
+                    <a href="${link}" target="_blank">Смотреть на платформах</a>
+                `;
+                movieDetailsContainer.appendChild(providerLinks);
+            }
+
             // Отображение информации о фильме
             function displayMovieDetails(movie, language) {
                 const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/400x600?text=Нет+постера';
@@ -191,13 +220,14 @@
                     <p>Дата выпуска: ${movie.release_date}</p>
                     <p>Рейтинг: ${movie.vote_average}</p>
                 `;
-                // Добавляем ссылки на Netflix, Amazon и Disney+
+                // Добавляем ссылки на Netflix, Amazon, Disney+ и lampa.mx
                 const movieLinks = document.createElement('div');
                 movieLinks.classList.add('movie-links');
                 movieLinks.innerHTML = `
                     <a href="https://www.netflix.com/search?q=${encodeURIComponent(movie.title)}" target="_blank">Netflix</a>
                     <a href="https://www.amazon.com/s?k=${encodeURIComponent(movie.title)}" target="_blank">Amazon</a>
                     <a href="https://www.disneyplus.com/search/${encodeURIComponent(movie.title)}" target="_blank">Disney+</a>
+                    <a href="https://lampa.mx/search?q=${encodeURIComponent(movie.title)}" target="_blank">Lampa</a>
                 `;
                 movieDetailsContainer.appendChild(movieLinks);
             }
