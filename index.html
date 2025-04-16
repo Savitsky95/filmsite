@@ -1,65 +1,92 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Поиск фильмов</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Поиск фильмов</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <style>
+        .movies {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.05);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .movie {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            text-align: center;
+            padding: 15px;
+            color: #ffd700;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+        .movie:hover {
+            transform: scale(1.03);
+        }
+        .movie img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
+    <!-- Верхняя панель -->
+    <header>
+        <div class="header-top">
+            <nav class="language-switcher" aria-label="Переключение языка">
+                <a href="?lang=ru">RU</a>
+                <a href="?lang=en">EN</a>
+                <a href="?lang=ua">UA</a>
+            </nav>
+        </div>
+        <h1 id="pageTitle">Давай найдем фильм вместе!</h1>
+        <nav class="main-nav" aria-label="Основная навигация">
+            <ul>
+                <li><button class="nav-btn" id="novinkiBtn">Новинки</button></li>
+                <li><button class="nav-btn" id="popularBtn">Популярное</button></li>
+                <li><button class="nav-btn" id="topBtn">Топ рейтинга</button></li>
+                <li><button class="nav-btn" id="searchBtn">Подбор</button></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- Верхняя панель -->
-  <header>
-    <div class="header-top">
-      <nav class="language-switcher" aria-label="Переключение языка">
-        <a href="?lang=ru">RU</a>
-        <a href="?lang=en">EN</a>
-        <a href="?lang=ua">UA</a>
-      </nav>
+    <!-- Основной контент -->
+    <main>
+        <section id="moviesContainer" class="movies" aria-live="polite">
+            <!-- Сюда через JS вставляются блоки фильмов -->
+        </section>
+    </main>
+
+    <!-- Модальное окно -->
+    <div id="filterModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="filtersTitle" style="display: none;">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Закрыть окно">×</button>
+            <h2 id="filtersTitle">Фильтры</h2>
+            <label for="type" id="typeLabel">Тип</label>
+            <select id="type">
+                <option value="movie" id="movieOption">Фильм</option>
+                <option value="tv" id="seriesOption">Сериал</option>
+            </select>
+            <label for="genre" id="genreLabel">Жанр</label>
+            <select id="genre">
+                <option value="">--</option>
+                <option value="28" id="actionOption">Экшн</option>
+                <option value="35" id="comedyOption">Комедия</option>
+                <option value="18">Драма</option>
+                <option value="27">Ужасы</option>
+                <option value="10749">Мелодрама</option>
+            </select>
+            <label for="year" id="yearLabel">Год</label>
+            <input type="number" id="year" placeholder="Введите год" />
+            <button id="searchMoviesBtn" class="search-btn">Поиск</button>
+        </div>
     </div>
-
-    <h1 id="pageTitle">Давай найдем фильм вместе!</h1>
-
-    <nav class="main-nav" aria-label="Основная навигация">
-      <ul>
-        <li><button class="nav-btn" id="novinkiBtn">Новинки</button></li>
-        <li><button class="nav-btn" id="popularBtn">Популярное</button></li>
-        <li><button class="nav-btn" id="topBtn">Топ рейтинга</button></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Основной контент -->
-  <main>
-    <button id="searchBtn">Подбор</button>
-    <section id="moviesContainer" class="movies" aria-live="polite"></section>
-  </main>
-
-  <!-- Модальное окно -->
-  <div id="filterModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="filtersTitle">
-    <div class="modal-content">
-      <button id="closeModalBtn" class="close-btn" aria-label="Закрыть окно">×</button>
-      <h2 id="filtersTitle">Фильтры</h2>
-
-      <label for="type" id="typeLabel">Тип</label>
-      <select id="type">
-        <option value="movie" id="movieOption">Фильм</option>
-        <option value="series" id="seriesOption">Сериал</option>
-      </select>
-
-      <label for="genre" id="genreLabel">Жанр</label>
-      <select id="genre">
-        <option value="action" id="actionOption">Экшн</option>
-        <option value="comedy" id="comedyOption">Комедия</option>
-      </select>
-
-      <label for="year" id="yearLabel">Год</label>
-      <input type="number" id="year" placeholder="Введите год" />
-
-      <button id="searchMoviesBtn" class="search-btn">Поиск</button>
-    </div>
-  </div>
-
-  <script src="script.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
